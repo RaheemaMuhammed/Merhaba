@@ -58,18 +58,6 @@ const prevImage = () => {
               alt={`Image ${currentImg + 1}`}
                     />
       
-            {/* <button
-              onClick={prevImage}
-              className='absolute top-1/2 left-0 transform -translate-y-1/2 text-3xl text-white hover:bg-secondary px-2 py-1 rounded-full '
-            >
-              &larr;
-            </button>
-            <button
-              onClick={nextImage}
-              className='absolute top-1/2 right-0 transform -translate-y-1/2 text-3xl text-white pb-1 px-2 py-1 rounded-full hover:bg-secondary'
-            >
-              &rarr;
-            </button> */}
             <div className='w-[500px] h-[100px] text-center'>
 
             <p className=' text-3xl text-shiny'>{headings[currentImg]}</p>

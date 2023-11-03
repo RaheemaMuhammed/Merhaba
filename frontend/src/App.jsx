@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './Pages/Home'
 import Header from './Components/Header'
+import SignupForm from './Components/SignupForm'
+import LoginForm from './Components/LoginForm'
 function App() {
 
   return (
@@ -9,6 +11,8 @@ function App() {
     <Header/>
     <Routes>
       <Route path='/' element={<Home/>}/>
+      <Route path='/signup' element={<SignupForm/>}/>
+      <Route path='/login' element={<LoginForm/>}/>
     </Routes>
     </BrowserRouter>
     </>
