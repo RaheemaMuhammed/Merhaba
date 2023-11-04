@@ -1,0 +1,58 @@
+<!-- {% autoescape off %}
+
+Hi {{ user.username }}
+Please click on below link to confirm your registration.
+http://{{domain}}/activate/?uid={{ uid }}&token={{ token }}
+
+if you think it's not you,please ignore this email.
+
+Lavender Haze
+
+{% endautoescape %} -->
+{% autoescape off %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Add CSS styles for your button */
+        .email{
+            
+            margin: auto;
+            width: 50%;
+            height: 50%;
+            border: 5px solid #0C1446;
+            padding: 10px;
+        }
+        .name{
+            font-size: larger;
+        }
+        .button {
+            background-color: #87ACA3;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .merhaba{
+            font-weight: 400;
+            font-size: larger;
+        }
+    </style>
+</head>
+<body class="email">
+    <header><img src="" alt="logo"></header>
+    <p class="name">Hi {{ user.username }},</p>
+    <p>Please click on the button below to confirm your registration:</p>
+    <a href="{{ domain }}verify/?uid={{ uid }}&token={{ token }}" class="button">Verify Email</a>
+    <p>If you think it's not you, please ignore this email.</p>
+    <p class="merhaba">Merhaba</p>
+</body>
+</html>
+
+{% endautoescape %}

@@ -1,8 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser,BaseUserManager,PermissionsMixin
-import uuid
-from django.utils import timezone
-import json
 # Create your models here.
 
 class CustomUserManager(BaseUserManager):
