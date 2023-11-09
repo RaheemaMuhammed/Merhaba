@@ -46,7 +46,6 @@ Lavender Haze
     </style>
 </head>
 <body class="email">
-    <header><img src="" alt="logo"></header>
     <p class="name">Hi {{ user.username }},</p>
     <p>Please click on the button below to confirm your registration:</p>
     <a href="{{ domain }}verify/?uid={{ uid }}&token={{ token }}" class="button">Verify Email</a>
