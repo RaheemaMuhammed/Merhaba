@@ -19,7 +19,7 @@ const SignupForm = () => {
             .post('authentication/register/',form,
             {
                 headers :{
-                    "Content-type" :"multipart/formdata"
+                    "Content-type" :"application/json"
                 }
             })
             console.log(response);
