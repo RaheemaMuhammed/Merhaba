@@ -72,7 +72,9 @@ class Login(APIView):
                                     'status':200,
                                     'refresh':str(token),
                                     'access':str(token.access_token),
-                                    'username':username
+                                    'username':username,
+                                    'pk':user.pk
+
                     })
                 else:
                     return Response({'message':'No such user found!!',

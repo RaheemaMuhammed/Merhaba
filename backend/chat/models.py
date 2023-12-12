@@ -23,6 +23,9 @@ class ChatRoom(models.Model):
         if not self.room_code:
             self.room_code = self.generate_unique_room_code()
         super().save(*args, **kwargs)
+    
+    def __str__(self) -> str:
+        return str(self.room_name )+'--->'+str(self.host.username)
 
 class ChatMessage(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -23,12 +23,12 @@ const LoginForm = () => {
             if (response?.data.status == 200){
                 toast.success(response?.data.message)
                 setLoading(false)
-                console.log(response);
                  
                 dispatch(UserLogin({
                   refreshToken : response?.data.refresh,
                   accessToken : response?.data.access,
                   user: response?.data.username,
+                  pk: response?.data.pk,
                })) 
              
                 navigate('/')

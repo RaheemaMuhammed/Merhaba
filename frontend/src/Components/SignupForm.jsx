@@ -22,11 +22,9 @@ const SignupForm = () => {
                     "Content-type" :"application/json"
                 }
             })
-            console.log(response);
-            console.log(response.data.status);
+         
             setLoading(false)
             if(response?.data.status===201){
-                console.log('hello');
                 toast.success('Successfully registered.An activation link has been sent to you.Please check your email!')
 
             }else{
@@ -35,7 +33,6 @@ const SignupForm = () => {
             }
         } catch (error) {
             toast.error(error)
-            console.log(error);
         }
     }
 

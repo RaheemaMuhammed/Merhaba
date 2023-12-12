@@ -7,6 +7,8 @@ import SignupForm from './Components/SignupForm'
 import LoginForm from './Components/LoginForm'
 import Verification from './Components/Verification'
 import { LoadingProvider } from './Context/LoadingContext'
+import ChatRoom from './Pages/ChatRoom';
+ChatRoom
 function App() {
 
   return (
@@ -17,6 +19,7 @@ function App() {
     <ToastContainer/>
     <Routes>
       <Route path='/' element={<Home/>}/>
+      <Route path='/chat/:roomCode' element={<ChatRoom/>}/>
       <Route path='/signup' element={<SignupForm/>}/>
       <Route path='/login' element={<LoginForm/>}/>
       <Route path='/verify/*' element={<Verification/>}/>

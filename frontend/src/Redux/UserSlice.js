@@ -6,6 +6,7 @@ const UserSlice= createSlice({
         refreshToken:null,
         accessToken:null,
         user:null,
+        pk:null,
        
     },
     reducers:{
@@ -13,6 +14,7 @@ const UserSlice= createSlice({
             state.refreshToken=action.payload.refreshToken
             state.accessToken=action.payload.accessToken
             state.user=action.payload.user
+            state.pk=action.payload.pk
 
 
         },
@@ -20,6 +22,7 @@ const UserSlice= createSlice({
             state.refreshToken=null
             state.accessToken=null
             state.user=null
+            state.pk=null
         }
     }
 })
