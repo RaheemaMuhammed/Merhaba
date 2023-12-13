@@ -13,7 +13,10 @@ export default {
         dimBlue: "rgba(9, 151, 124, 0.1)",
         newTeal:"#2B7C85",
         newTGreen:"#175873",
-        shiny:"#fafeff"
+        shiny:"#fafeff",
+        messages:"#f0f5f3",
+        msgtxt:"#111917",
+        sender:"#344b46"
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],

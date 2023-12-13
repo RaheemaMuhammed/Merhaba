@@ -15,7 +15,11 @@ const ChatRoom = () => {
     const token=useSelector(state=> state.UserReducer.accessToken)
     const [newuser,setNewUser]=useState(false)
     const pk=useSelector(state=> state.UserReducer.pk)
-    const socketRef = useWebSocket(roomCode, token, setNewUser);
+    const [incominMsg,setIncomingMsg]=useState('')
+    const [sender,setSender]=useState({})
+    const [messageList,setMessageList]=useState([])
+    const socketRef = useWebSocket(roomCode, token, setNewUser,setIncomingMsg,setSender,setMessageList);
+    const [message,setMessage] =useState('')
 
     useEffect(() => {
      console.log(roomCode);
@@ -31,13 +35,15 @@ const ChatRoom = () => {
                     code:roomCode
                 },
             })
+            console.log(response);
             if(response?.data?.status===200){
               setLoading(false)
 
-              setRoomData(response?.data.payload)
+              setRoomData(response?.data?.payload?.user_data)
+              setMessageList(response?.data?.payload?.message_data)
             }else{
               toast.error('No room')
-              navigate('/')
+               navigate('/')
 
             }
         } catch (error) {
@@ -47,7 +53,11 @@ const ChatRoom = () => {
     }
     getRoomDetails()
     }, [newuser])
-
+  
+    useEffect(() => {
+      console.log(messageList);
+    }, [messageList])
+    
    
     
 
@@ -63,6 +73,27 @@ const ChatRoom = () => {
           },
       })
 
+    }
+
+    const sendMessage =async()=>{
+      
+      try {
+        const response=await axiosInstance
+                        .post('chat/message/',
+                        {'code':roomCode,
+                      'content':message,
+                    'sender':pk},
+                        {
+                        headers :{
+                          "Content-type" :"application/json",
+                          Authorization:`Bearer ${token}`, },
+                        })
+                        setMessage(()=>'')
+                        console.log(response);
+        
+      } catch (error) {
+        console.log(error);
+      }
     }
     
 
@@ -82,7 +113,7 @@ const ChatRoom = () => {
           <p className='text-xl font-semibold'>{roomData?.room_name?.toUpperCase()}</p>
           {pk===roomData?.host_details?.pk && 
           
-          <p className='right-2 bg-red-500 text-white p-1 px-2 shadow-red-700 shadow-md' onClick={handleStop}>Stop</p>
+          <p className='right-2 bg-red-500 text-white p-1 px-2 shadow-red-700 shadow-md cursor-pointer' onClick={handleStop}>Stop</p>
           }
         </div>
         {/* <!-- end search compt -->
@@ -132,9 +163,30 @@ const ChatRoom = () => {
       </div>
       {/* <!-- end chat list -->
       <!-- message --> */}
-      <div className="w-full px-5 flex flex-col justify-between h-screen">
+      <div className="w-full px-5 flex flex-col justify-between h-screen relative">
         <div className="flex flex-col mt-5">
-          <div className="flex justify-end mb-4">
+          {messageList?.map((item,indx)=>{
+            
+            return item?.sender_details?.pk===pk?(
+              <div className="flex justify-end mb-4">
+              <div
+                className="mr-2 py-3 px-4 bg-messages rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-msgtxt"
+              ><p className='font-semibold text-lg text-sender' >{item?.sender_details?.username}</p>
+               {item?.content}
+              </div>
+              
+            </div>
+
+            ):(<div className="flex justify-start mb-4">
+            
+            <div
+              className="ml-2 py-3 px-4 bg-messages rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-msgtxt"
+            ><p className='font-semibold text-lg text-sender' >{item?.sender_details?.username}</p>
+              {item?.content}
+            </div>
+          </div>)
+          })}
+          {/* <div className="flex justify-end mb-4">
             <div
               className="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
             >
@@ -194,14 +246,17 @@ const ChatRoom = () => {
             >
               happy holiday guys!
             </div>
-          </div>
+          </div> */}
         </div>
-        <div className="py-5">
+        <div className="py-2 sticky bottom-0 flex gap-2 border-2 border-primary z-30 bg-white rounded-xl">
           <input
-            className="w-full bg-gray-300 py-5 px-3 rounded-xl"
+            className="w-full  py-3 px-3 outline-none"
             type="text"
             placeholder="type your message here..."
+            value={message}
+            onChange={(e)=>setMessage(e.target.value)}
           />
+          <p className='font-semibold mr-3 py-3 cursor-pointer' onClick={sendMessage}>send</p>
         </div>
       </div>
       {/* <!-- end message --> */}

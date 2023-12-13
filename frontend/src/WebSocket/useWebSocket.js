@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const useWebSocket = (roomCode, token, setNewUser) => {
+const useWebSocket = (roomCode, token, setNewUser,setIncomingMsg,setSender,setMessageList) => {
   const socketRef = useRef(null);
   const navigate=useNavigate()
 
@@ -21,6 +21,12 @@ const useWebSocket = (roomCode, token, setNewUser) => {
       }else if(data.deleted){
         toast.warn('This chatroom has been deleted')
         navigate('/')
+      }else if (data.message){
+        setIncomingMsg(()=>data?.content)
+        setSender(()=>data?.sender)
+        setMessageList((prev)=>[...prev,data])
+
+
       } else {
         toast.error('You cannot join');
       }

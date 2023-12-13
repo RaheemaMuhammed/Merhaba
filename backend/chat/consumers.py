@@ -100,6 +100,17 @@ class JoinChatConsumer(AsyncWebsocketConsumer):
             'message': event['message'],  
         }))
 
+    async def new_message(self, event):
+        # Notify the connected clients about new message 
+        await self.send(text_data=json.dumps({
+            'message': True,
+            'content': event['message'],
+            'sender_details':event['sender']  
+        }))
+
+
+
+
     
 
     async def disconnect(self, code):
