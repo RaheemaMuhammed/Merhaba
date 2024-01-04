@@ -43,8 +43,18 @@ const ChatRoom = () => {
 
               setRoomData(response?.data?.payload?.user_data)
               setMessageList(response?.data?.payload?.message_data)
+            }else if(response?.data?.status===404){
+              setLoading(false)
+              toast.error(response?.data?.message)
+              navigate('/')
+
+
+
+
             }else{
-              toast.error('No room')
+              toast.error('No active room with this code')
+              setLoading(false)
+
                navigate('/')
 
             }

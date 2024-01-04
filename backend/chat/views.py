@@ -27,12 +27,13 @@ class ChatRoomView(APIView):
         try:
             code=request.GET.get('code')
             chat_room=ChatRoom.objects.get(room_code=code)
-            serializer= ChatRoomSerializer(chat_room)
-            chatroom_messages = ChatMessage.objects.filter(room__room_code=code)
-        
-
-            serializer2=ChatMessageSerializer(chatroom_messages,many=True)
-            return Response({'payload':{'user_data':serializer.data,'message_data':serializer2.data},'status':200})
+            if not chat_room.is_expired:
+                serializer= ChatRoomSerializer(chat_room)
+                chatroom_messages = ChatMessage.objects.filter(room__room_code=code)
+                serializer2=ChatMessageSerializer(chatroom_messages,many=True)
+                return Response({'payload':{'user_data':serializer.data,'message_data':serializer2.data},'status':200})
+            return Response({'message':'This chat has been expired!!','status':404})
+            
         except Exception as e:
             return Response({'error':str(e),'status':400})
         
@@ -41,16 +42,17 @@ class ChatRoomView(APIView):
         try:
             code=request.GET.get('code')
             chat_room=ChatRoom.objects.get(room_code=code)
-            chat_room.delete()
+            chat_room.is_expired=True
+            chat_room.save()
             channel_layer = get_channel_layer()
             async_to_sync(channel_layer.group_send)(
                 f"user_{code}",
                 {
                     'type': 'chatroom_deleted',
-                    'message': 'The chatroom has been deleted.',
+                    'message': 'This chat has been ended.',
                 }
             )
-            return Response({'status':200,'message':' deleted successfully'})
+            return Response({'status':200,'message':' ended successfully'})
         except Exception as e:
                  return Response({'error':str(e)})
 

@@ -12,6 +12,7 @@ class ChatRoom(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     room_name = models.CharField(max_length=255)
     room_code = models.CharField(max_length=50, unique=True)
+    is_expired = models.BooleanField(default=False)
 
     def generate_unique_room_code(self,length=6):
         while True:
