@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useLoading } from '../CustomHooks/useLoading'
 import { useFormik } from 'formik'
@@ -22,8 +22,7 @@ const LoginForm = () => {
             
             if (response?.data.status == 200){
                 toast.success(response?.data.message)
-                setLoading(false)
-                 
+                 setLoading(false)
                 dispatch(UserLogin({
                   refreshToken : response?.data.refresh,
                   accessToken : response?.data.access,
@@ -35,14 +34,20 @@ const LoginForm = () => {
                
               }else if (response?.data.status === 404) {
                     toast.error(response?.data.message)
+                    setLoading(false)
+                    
                   } else if (response?.data.status === 401) {
                     toast.error(response?.data.message)
+                    setLoading(false)
                   } else if (response?.data.status === 400) {
                     toast.error(response?.data.message)
+                    setLoading(false)
                   } else {
                     toast.error('something went wrong')
+                    setLoading(false)
                   }
               }catch (error) {
+                setLoading(false)
             console.log(error)
       
           }
@@ -63,6 +68,13 @@ const LoginForm = () => {
             onSubmit,
          })
 
+         const reachGoogle = ()=>{
+          const clientID=import.meta.env.VITE_GOOGLE_CLIENT_ID;
+          const callBackURI='http://localhost:5173/';
+          window.location.replace(`https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${callBackURI}&prompt=consent&response_type=code&client_id=${clientID}&scope=openid%20email%20profile&access_type=offline`)
+         }
+
+  
   return (
     <section className="bg-secondary h-screen ">
     <div className="flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
@@ -120,7 +132,7 @@ const LoginForm = () => {
                         Don't have an account? <Link to={'/signup'} className="font-medium text-shiny hover:underline ">SignUp here</Link>
                     </p>
                     <p className="w-full text-white font-medium rounded-lg text-sm px-5 py-1 text-center " >OR</p>
-                    <p className="w-full text-white bg-secondary font-medium rounded-lg text-sm px-5 py-2.5 text-center " >Google</p>
+                    <p className="w-full text-white bg-secondary font-medium rounded-lg text-sm px-5 py-2.5 text-center cursor-pointer" onClick={reachGoogle} >Google</p>
                 </form>
             </div>
         </div>

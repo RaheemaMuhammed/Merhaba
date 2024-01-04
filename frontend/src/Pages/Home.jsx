@@ -31,12 +31,12 @@ const token=useSelector(state=> state.UserReducer.accessToken)
 
   const handleRoomJoin=(e)=>{
     e.preventDefault()
-   
+      if(!code){
+        toast.error("enter roomcode")
+      }else{
+
         navigate(`/chat/${code}`)
-
-  
-
-
+      }
 
   }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import { axiosInstance } from '../Axios/instanse'
 import {toast} from 'react-toastify'
@@ -7,6 +7,7 @@ import { registrationSchema } from '../Validations/registrationValidation'
 import { useLoading } from '../CustomHooks/useLoading'
 const SignupForm = () => {
    const {loading,setLoading} =useLoading()
+   const navigate=useNavigate()
     const onSubmit=async ()=>{
         setLoading(true)
         const form = new FormData()
@@ -26,6 +27,7 @@ const SignupForm = () => {
             setLoading(false)
             if(response?.data.status===201){
                 toast.success('Successfully registered.An activation link has been sent to you.Please check your email!')
+                navigate('/login')
 
             }else{
                 toast.error('Something went wrong')
@@ -51,6 +53,11 @@ const SignupForm = () => {
             validationSchema:registrationSchema,
             onSubmit,
          })
+         const reachGoogle = ()=>{
+            const clientID=import.meta.env.VITE_GOOGLE_CLIENT_ID;
+            const callBackURI='http://localhost:5173/';
+            window.location.replace(`https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${callBackURI}&prompt=consent&response_type=code&client_id=${clientID}&scope=openid%20email%20profile&access_type=offline`)
+           }
   return (
     <section className="bg-secondary  h-screen ">
     <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -133,6 +140,8 @@ const SignupForm = () => {
                         Already have an account? <Link to={'/login'} className="font-medium text-primary-600 hover:underline ">Login here</Link>
                         
                     </p>
+                    <p className="w-full text-white font-medium rounded-lg text-sm px-5 py-1 text-center " >OR</p>
+                    <p className="w-full text-white bg-secondary font-medium rounded-lg text-sm px-5 py-2.5 text-center cursor-pointer" onClick={reachGoogle} >Google</p>
                 </form>
             </div>
         </div>

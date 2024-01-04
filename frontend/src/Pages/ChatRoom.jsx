@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 import useWebSocket from '../WebSocket/useWebSocket'
 import { useLoading } from '../CustomHooks/useLoading'
+import avatar from '../../src/assets/avatar.jpg'
 
 const ChatRoom = () => {
   const { loading ,setLoading }    = useLoading()
@@ -22,6 +23,7 @@ const ChatRoom = () => {
     const [message,setMessage] =useState('')
 
     useEffect(() => {
+      setLoading(true)
      console.log(roomCode);
      const getRoomDetails =async ()=>{
         try {
@@ -58,9 +60,6 @@ const ChatRoom = () => {
       console.log(messageList);
     }, [messageList])
     
-   
-    
-
 
     const handleStop=async()=>{
       const response=await axiosInstance.delete('chat/chatroom/',
@@ -122,11 +121,18 @@ const ChatRoom = () => {
           className="flex flex-row py-3 px-2 justify-center items-center border-b-2 relative"
         >
           <div className="w-1/4">
-            <img
-              src={`http://127.0.0.1:8000${roomData?.host_details?.profile_pic}`}
-              className="object-cover h-12 w-12 rounded-full"
-              alt=""
-            />
+            {
+            roomData?.host_details?.profile_pic?<img
+            src={`http://127.0.0.1:8000${roomData?.host_details?.profile_pic}`}
+            className="object-cover h-12 w-12 rounded-full"
+            alt=""
+          />:<img
+          src={avatar}
+          className="object-cover h-9 w-9 rounded-full"
+          alt=""
+        />
+          }
+            
           </div>
           <div className="w-full">
             <div className="text-lg font-semibold">{roomData?.host_details?.username}</div>
@@ -139,12 +145,19 @@ const ChatRoom = () => {
           className="flex flex-row py-4 px-2 justify-center items-center border-b-2"
         >
           <div className="w-1/4">
-            <img
-              src={`http://127.0.0.1:8000${item ?.profile_pic}`}
+          {
+            item ?.profile_pic? <img
+            src={`http://127.0.0.1:8000${item ?.profile_pic}`}
 
-              className="object-cover h-12 w-12 rounded-full"
-              alt=""
-            />
+            className="object-cover h-12 w-12 rounded-full"
+            alt=""
+          />:<img
+          src={avatar}
+          className="object-cover h-9 w-9 rounded-full"
+          alt=""
+        />
+          }
+           
           </div>
           <div className="w-full">
             <div className="text-lg font-semibold">{item?.username}</div>

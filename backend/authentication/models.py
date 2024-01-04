@@ -36,11 +36,21 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractUser,PermissionsMixin):
+    REGISTRATION_CHOICES = [
+        ('email', 'Email'),
+        ('google', 'Google'),
+    ]
+    registration_method = models.CharField(
+        max_length=10,
+        choices=REGISTRATION_CHOICES,
+        default='email'
+    )
     email=models.EmailField(max_length=100, unique=True)
     username=models.CharField(max_length=250,null=True)
     profile_pic=models.ImageField(null=True,upload_to='userprofile')
     is_active=models.BooleanField(default=False)
     is_user=models.BooleanField(default=False)
+
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']

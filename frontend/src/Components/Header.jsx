@@ -1,15 +1,71 @@
 import React, { useState,useEffect } from 'react'
 import logo from '../assets/logo.png'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
 import {UserLogout} from '../Redux/userSlice'
+import { axiosInstance } from '../Axios/instanse'
+import { useLoading } from '../CustomHooks/useLoading'
+import {UserLogin} from '../Redux/userSlice'
+
+
 const Header = () => {
     const user = useSelector(state => state.UserReducer.user)
     const dispatch =useDispatch()
     const navigate=useNavigate()
 
+    let location =useLocation();
+    const [error, setError] = useState("");
+   const {loading,setLoading} =useLoading()
 
+
+  
+    useEffect(() => {
+    //   const values = queryString.parse(location.search);
+    if(!user){
+        const queryparams=new URLSearchParams(location.search)
+
+        const code = queryparams.get('code') ? queryparams.get('code') : null;
+    
+        if (code) {
+          onGogglelogin();
+        }
+    } 
+    
+    }, []);
+  
+    const googleLoginHandler = (code) => {
+      return axiosInstance
+        .get(`authentication/login/google/${code}`)
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          setError(err);
+          return err;
+        });
+    };
+  
+    const onGogglelogin = async () => {
+      const response = await googleLoginHandler(location.search);
+      if (response?.status === 200){
+        toast.success(response?.message)
+         setLoading(false)
+        dispatch(UserLogin({
+          refreshToken : response?.refresh_token,
+          accessToken : response?.access_token,
+          user: response?.username,
+          pk: response?.pk,
+       })) 
+     
+        navigate('/')
+       
+      }else {
+        toast.error('something went wrong')
+        setLoading(false)
+        navigate('/')
+      }
+    }
   
     const handleLogout =() => {
         if (user){            
@@ -17,6 +73,7 @@ const Header = () => {
             toast.success('Successfully Logged Out')         
         }navigate('/')
     }
+
   return (
   
         <header>
