@@ -6,10 +6,11 @@ import { useSelector } from 'react-redux'
 import useWebSocket from '../WebSocket/useWebSocket'
 import { useLoading } from '../CustomHooks/useLoading'
 import avatar from '../../src/assets/avatar.jpg'
-
+import data from '@emoji-mart/data'
+import Picker from '@emoji-mart/react'
 const ChatRoom = () => {
   const { loading ,setLoading }    = useLoading()
-
+    const [showPicker,setShowPicker]=useState(false)
     const navigate=useNavigate()
     const {roomCode} =useParams()
     const [roomData,setRoomData]=useState('')
@@ -209,75 +210,38 @@ const ChatRoom = () => {
             </div>
           </div>)
           })}
-          {/* <div className="flex justify-end mb-4">
-            <div
-              className="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
-            >
-              Welcome to group everyone !
-            </div>
-            <img
-              src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-              className="object-cover h-8 w-8 rounded-full"
-              alt=""
-            />
-          </div>
-          <div className="flex justify-start mb-4">
-            <img
-              src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-              className="object-cover h-8 w-8 rounded-full"
-              alt=""
-            />
-            <div
-              className="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white"
-            >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-              at praesentium, aut ullam delectus odio error sit rem. Architecto
-              nulla doloribus laborum illo rem enim dolor odio saepe,
-              consequatur quas?
-            </div>
-          </div>
-          <div className="flex justify-end mb-4">
-            <div>
-              <div
-                className="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
-              >
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Magnam, repudiandae.
-              </div>
+        
+        </div>
+        {showPicker &&
 
-              <div
-                className="mt-4 mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
-              >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Debitis, reiciendis!
-              </div>
-            </div>
-            <img
-              src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-              className="object-cover h-8 w-8 rounded-full"
-              alt=""
-            />
-          </div>
-          <div className="flex justify-start mb-4">
-            <img
-              src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-              className="object-cover h-8 w-8 rounded-full"
-              alt=""
-            />
-            <div
-              className="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white"
-            >
-              happy holiday guys!
-            </div>
-          </div> */}
+        <Picker data={data} onEmojiSelect={(e)=>setMessage((msg)=> msg+e.native)} />
+        }
+        <div>
+
         </div>
         <div className="py-2 sticky bottom-0 flex gap-2 border-2 border-primary z-30 bg-white rounded-xl">
+          <p className='ml-1 mt-1 cursor-pointer' onClick={()=>setShowPicker(!showPicker)}>
+
+        <svg viewBox="0 0 200 200" width="40"  height="40" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="100" cy="100" fill="white" r="78" stroke="grey" stroke-width="4"/>
+  <g class="eyes">
+    <circle cx="61" cy="82" r="7"/>
+    <circle cx="127" cy="82" r="7"/>
+  </g>
+  <path d="m136.81 116.53c.69 26.17-64.11 42-81.52-.73" style={{fill:'none', stroke: 'black', strokeWidth: 3}}/>
+</svg>
+          </p>
           <input
             className="w-full  py-3 px-3 outline-none"
             type="text"
             placeholder="type your message here..."
             value={message}
             onChange={(e)=>setMessage(e.target.value)}
+            onKeyDown={(e)=>{
+              if(e.key=='Enter'){
+                sendMessage()
+                console.log(e);
+              }}}
           />
           <p className='font-semibold mr-3 py-3 cursor-pointer' onClick={sendMessage}>send</p>
         </div>
