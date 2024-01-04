@@ -86,6 +86,7 @@ const ChatRoom = () => {
     }
 
     const sendMessage =async()=>{
+      setShowPicker(false)
       
       try {
         const response=await axiosInstance
@@ -106,7 +107,15 @@ const ChatRoom = () => {
       }
     }
     
+    const addEmoji=(e)=>{
+      
+        let sym = e.unified.split('-')
+        let codesArray = []
+        sym.forEach(el => codesArray.push('0x' + el))
+        let emoji = String.fromCodePoint(...codesArray)
+        setMessage((msg)=> msg+emoji)
 
+    }
     
   return (
 
@@ -212,14 +221,15 @@ const ChatRoom = () => {
           })}
         
         </div>
+        
+        <div className='sticky z-30 '>
         {showPicker &&
 
-        <Picker data={data} onEmojiSelect={(e)=>setMessage((msg)=> msg+e.native)} />
-        }
-        <div>
+<Picker data={data} onEmojiSelect={addEmoji} />
+}
 
         </div>
-        <div className="py-2 sticky bottom-0 flex gap-2 border-2 border-primary z-30 bg-white rounded-xl">
+        <div className="py-2 sticky bottom-0 flex gap-2 border-2 border-primary z-50 bg-white rounded-xl">
           <p className='ml-1 mt-1 cursor-pointer' onClick={()=>setShowPicker(!showPicker)}>
 
         <svg viewBox="0 0 200 200" width="40"  height="40" xmlns="http://www.w3.org/2000/svg">
@@ -240,7 +250,7 @@ const ChatRoom = () => {
             onKeyDown={(e)=>{
               if(e.key=='Enter'){
                 sendMessage()
-                console.log(e);
+                setShowPicker(false)
               }}}
           />
           <p className='font-semibold mr-3 py-3 cursor-pointer' onClick={sendMessage}>send</p>
