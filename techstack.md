@@ -54,7 +54,7 @@ Full tech stack [here](/techstack.md)
 # Tech Stack File
 ![](https://img.stackshare.io/repo.svg "repo") [RaheemaMuhammed/Merhaba](https://github.com/RaheemaMuhammed/Merhaba)![](https://img.stackshare.io/public_badge.svg "public")
 <br/><br/>
-|31<br/>Tools used|12/15/23 <br/>Report generated|
+|32<br/>Tools used|01/05/24 <br/>Report generated|
 |------|------|
 </div>
 
@@ -244,9 +244,9 @@ Full tech stack [here](/techstack.md)
 </table>
 
 
-## <img src='https://img.stackshare.io/group.svg' /> Open source packages (11)</h2>
+## <img src='https://img.stackshare.io/group.svg' /> Open source packages (12)</h2>
 
-## <img width='24' height='24' src='https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png'/> npm (11)
+## <img width='24' height='24' src='https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png'/> npm (12)
 
 |NAME|VERSION|LAST UPDATED|LAST UPDATED BY|LICENSE|VULNERABILITIES|
 |:------|:------|:------|:------|:------|:------|
@@ -261,6 +261,7 @@ Full tech stack [here](/techstack.md)
 |[socket.io-client](https://www.npmjs.com/socket.io-client)|v4.7.2|12/12/23|RaheemaMuhammed |MIT|N/A|
 |[tailwindcss](https://www.npmjs.com/tailwindcss)|v3.3.5|10/30/23|RaheemaMuhammed |MIT|N/A|
 |[vite](https://www.npmjs.com/vite)|v4.5.0|10/30/23|RaheemaMuhammed |N/A|[CVE-2023-49293](https://github.com/advisories/GHSA-92r3-m2mg-pj97) (Moderate)|
+|[yup](https://www.npmjs.com/yup)|v1.3.2|10/30/23|RaheemaMuhammed |MIT|N/A|
 
 <br/>
 <div align='center'>
