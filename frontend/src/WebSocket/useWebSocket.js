@@ -25,6 +25,11 @@ const useWebSocket = (roomCode, token, setNewUser,setIncomingMsg,setSender,setMe
         setIncomingMsg(()=>data?.content)
         setSender(()=>data?.sender)
         setMessageList((prev)=>[...prev,data])
+        
+
+
+      }else if(data.file){
+        setMessageList((prev)=>[...prev,data])
 
 
       } else {

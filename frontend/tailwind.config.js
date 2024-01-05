@@ -16,7 +16,8 @@ export default {
         shiny:"#fafeff",
         messages:"#f0f5f3",
         msgtxt:"#111917",
-        sender:"#344b46"
+        sender:"#344b46",
+        chatBg:"#E7EEED"
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],

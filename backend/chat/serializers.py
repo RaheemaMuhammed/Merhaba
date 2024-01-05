@@ -41,4 +41,4 @@ class ChatMessageSerializer(serializers.ModelSerializer):
     sender_details=UserSerializer(source='sender',read_only=True)
     class Meta:
         model=ChatMessage
-        fields = ('id', 'sender', 'sender_details', 'room', 'content', 'time')
+        fields = ('id', 'sender', 'sender_details', 'room', 'content', 'time','photo','video','document')

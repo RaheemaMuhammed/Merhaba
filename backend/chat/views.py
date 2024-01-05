@@ -29,7 +29,7 @@ class ChatRoomView(APIView):
             chat_room=ChatRoom.objects.get(room_code=code)
             if not chat_room.is_expired:
                 serializer= ChatRoomSerializer(chat_room)
-                chatroom_messages = ChatMessage.objects.filter(room__room_code=code)
+                chatroom_messages = ChatMessage.objects.filter(room__room_code=code).order_by('time')
                 serializer2=ChatMessageSerializer(chatroom_messages,many=True)
                 return Response({'payload':{'user_data':serializer.data,'message_data':serializer2.data},'status':200})
             return Response({'message':'This chat has been expired!!','status':404})
@@ -76,25 +76,38 @@ class MessageView(APIView):
                data['room']=room.pk
                pk=data['sender']
                sender=CustomUser.objects.get(pk=pk)
-               print(data)
+               
                serializer=PostMessageSerializer(data=data)
 
                if serializer.is_valid():
-                    serializer.save()
+                    message=serializer.save()
                     channel_layer = get_channel_layer()
-                    async_to_sync(channel_layer.group_send)(
+                    if 'file' in request.FILES:
+                        message.photo = request.FILES['file']  # Change 'photo' to your desired file field
+                        message.save()
+                        async_to_sync(channel_layer.group_send)(
                         f"user_{code}",
                         {
-                            'type': 'new_message',
+                            'type': 'new_file',
+                            'file':  '/media/chat_photos/'+str(request.FILES['file']),
                             'message': data['content'],
                             'sender': {
-            'username': sender.username,
-            'pk': sender.pk,
-            'email': sender.email
-        } 
-
-                        }
-                    )
+                            'username': sender.username,
+                            'pk': sender.pk,
+                            'email': sender.email
+                        }})
+                    else:
+                        async_to_sync(channel_layer.group_send)(
+                            f"user_{code}",
+                            {
+                                'type': 'new_message',
+                                'message': data['content'],
+                                'sender': {
+                                'username': sender.username,
+                                'pk': sender.pk,
+                                'email': sender.email
+                            } }
+                        )
             
                     return Response({'message':"message send successfully",'status':201})
                else:

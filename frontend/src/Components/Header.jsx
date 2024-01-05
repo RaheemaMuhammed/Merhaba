@@ -8,7 +8,7 @@ import { axiosInstance } from '../Axios/instanse'
 import { useLoading } from '../CustomHooks/useLoading'
 import {UserLogin} from '../Redux/userSlice'
 
-
+import { CgProfile } from "react-icons/cg";
 const Header = () => {
     const user = useSelector(state => state.UserReducer.user)
     const dispatch =useDispatch()
@@ -89,9 +89,12 @@ const Header = () => {
                 { user ?
                 <>
                 <p className='text-primary font-medium text-lg px-4 lg:px-5 py-2 lg:py-2.5 mr-2 '>Welcome {user ? user.toUpperCase() : ''}  !</p>     
-                <p onClick={handleLogout} className="text-shiny cursor-pointer bg-primary hover:shadow-lg hover:shadow-shiny focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2  focus:outline-none ">
+                {/* <p onClick={handleLogout} className="text-shiny cursor-pointer bg-primary hover:shadow-lg hover:shadow-shiny focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2  focus:outline-none ">
          
                     LogOut
+                    </p> */}
+                    <p className='text-primary'>
+                      <CgProfile size={40} fill=''/>
                     </p>
                     
                 </> 

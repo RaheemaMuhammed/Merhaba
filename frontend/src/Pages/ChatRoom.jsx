@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react'
+import React,{useEffect, useState,useRef} from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { axiosInstance } from '../Axios/instanse'
 import { toast } from 'react-toastify'
@@ -8,6 +8,10 @@ import { useLoading } from '../CustomHooks/useLoading'
 import avatar from '../../src/assets/avatar.jpg'
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
+import { SlEmotsmile } from "react-icons/sl";
+import { MdAttachFile } from "react-icons/md";
+import { IoMdCloseCircleOutline } from "react-icons/io";
+
 const ChatRoom = () => {
   const { loading ,setLoading }    = useLoading()
     const [showPicker,setShowPicker]=useState(false)
@@ -22,6 +26,8 @@ const ChatRoom = () => {
     const [messageList,setMessageList]=useState([])
     const socketRef = useWebSocket(roomCode, token, setNewUser,setIncomingMsg,setSender,setMessageList);
     const [message,setMessage] =useState('')
+    const [file,setFile] =useState(null)
+    const [selectedFile, setSelectedFile] = useState(null);
 
     useEffect(() => {
       setLoading(true)
@@ -66,10 +72,7 @@ const ChatRoom = () => {
     }
     getRoomDetails()
     }, [newuser])
-  
-    useEffect(() => {
-      console.log(messageList);
-    }, [messageList])
+
     
 
     const handleStop=async()=>{
@@ -86,25 +89,36 @@ const ChatRoom = () => {
     }
 
     const sendMessage =async()=>{
-      setShowPicker(false)
-      
-      try {
-        const response=await axiosInstance
-                        .post('chat/message/',
-                        {'code':roomCode,
-                      'content':message,
-                    'sender':pk},
-                        {
-                        headers :{
-                          "Content-type" :"application/json",
-                          Authorization:`Bearer ${token}`, },
-                        })
-                        setMessage(()=>'')
-                        console.log(response);
-        
-      } catch (error) {
-        console.log(error);
-      }
+                    setShowPicker(false)
+                    
+                    try {
+                      const formData = new FormData();
+                      formData.append('code', roomCode);
+                      formData.append('content', message);
+                      formData.append('sender', pk);
+                      if (selectedFile) {
+                        formData.append('file', selectedFile);
+                      }
+                  
+                      const response=await axiosInstance
+                                      .post('chat/message/',
+                                      formData,
+                                      {
+                                      headers :{
+                                        "Content-type" :"multipart/form-data",
+                                        Authorization:`Bearer ${token}`, },
+                                      })
+                                      if(response?.data?.status === 201){
+
+                                        setMessage(()=>'')
+                                        setFile(null)
+                                        setSelectedFile(null)
+                                      }
+                                      console.log(response);
+                      
+                      } catch (error) {
+                        console.log(error);
+                      }
     }
     
     const addEmoji=(e)=>{
@@ -117,17 +131,34 @@ const ChatRoom = () => {
 
     }
     
+    const handleFileChange=(event)=>{
+      const file = event.target.files[0];
+      setSelectedFile(file);
+      // setMessage(file)
+      setFile(file)
+
+    }
+    const messagesEndRef = useRef(null);
+
+    const scrollToBottom = () => {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+  
+    // This useEffect will trigger scrolling whenever messageList changes
+    useEffect(() => {
+      scrollToBottom();
+    }, [messageList]);
+
   return (
 
     <>{
       loading ? <p>loading....</p> :
-      <div className="w-screen">
-        
+      // <div className="w-screen">
+        <>
     {/* <!-- Chatting -->  */}
-    <div className="flex flex-row justify-between bg-white">
+    <div className="flex ">
       {/* <!-- chat list --> */}
-      <div className="flex flex-col w-2/5 border-r-2 overflow-y-auto">
-        {/* <!-- search compt --> */}
+      <div className="flex flex-col w-1/4 border-r-2 h-screen sticky top-0">
         <div className="border-b-2 py-4 px-2 flex justify-between">
           <p className='text-xl font-semibold'>{roomData?.room_name?.toUpperCase()}</p>
           {pk===roomData?.host_details?.pk && 
@@ -188,16 +219,13 @@ const ChatRoom = () => {
         })
 
         }
-        
-    
-
-       
+            
         {/* <!-- end user list --> */}
       </div>
       {/* <!-- end chat list -->
       <!-- message --> */}
-      <div className="w-full px-5 flex flex-col justify-between h-screen relative">
-        <div className="flex flex-col mt-5">
+      <div className="px-5  w-3/4 ">
+        <div className="flex flex-col mt-5  relative">
           {messageList?.map((item,indx)=>{
             
             return item?.sender_details?.pk===pk?(
@@ -205,6 +233,7 @@ const ChatRoom = () => {
               <div
                 className="mr-2 py-3 px-4 bg-messages rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-msgtxt"
               ><p className='font-semibold text-lg text-sender' >{item?.sender_details?.username}</p>
+              {item?.photo && <img className='h-[300px] w-[300px]' src={`http://127.0.0.1:8000${item.photo}`}/>}
                {item?.content}
               </div>
               
@@ -215,51 +244,89 @@ const ChatRoom = () => {
             <div
               className="ml-2 py-3 px-4 bg-messages rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-msgtxt"
             ><p className='font-semibold text-lg text-sender' >{item?.sender_details?.username}</p>
+              {item?.photo && <img className='h-[300px] w-[300px]' src={`http://127.0.0.1:8000${item.photo}`}/>}
               {item?.content}
             </div>
           </div>)
           })}
-        
-        </div>
-        
-        <div className='sticky z-30 '>
+        <div ref={messagesEndRef} />
+        <div className=' z-30 '>
         {showPicker &&
-
-<Picker data={data} onEmojiSelect={addEmoji} />
-}
+          <Picker data={data} onEmojiSelect={addEmoji} />
+          }
+         
 
         </div>
-        <div className="py-2 sticky bottom-0 flex gap-2 border-2 border-primary z-50 bg-white rounded-xl">
-          <p className='ml-1 mt-1 cursor-pointer' onClick={()=>setShowPicker(!showPicker)}>
+        </div>
+        
+        
+        
+        <div className="py-2 sticky bottom-0  border-2 border-primary z-50 bg-white rounded-xl">
+            {selectedFile && (
+            <>
+            
+              <p className='absolute mr-0 top-0 ml-16 z-20 cursor-pointer' onClick={()=>{setSelectedFile(null);setFile(null)}}><IoMdCloseCircleOutline size={23}/></p>
+            <div className='rounded-lg  relative z-10'>
+              <img
+                src={URL.createObjectURL(selectedFile)}
+                alt={`preview`}
+                style={{ width: '70px', height: '70px',borderRadius:'15px',margin:'3px',marginLeft:'7px' }}
+              />
+            </div>
+            </>
+            
+          )}
+      <div className='flex gap-2'>
+      <p className='ml-1 mt-2 text-gray-700 cursor-pointer hover:bg-slate-300 p-1 rounded-md' onClick={()=>setShowPicker(!showPicker)}>
 
-        <svg viewBox="0 0 200 200" width="40"  height="40" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="100" cy="100" fill="white" r="78" stroke="grey" stroke-width="4"/>
-  <g class="eyes">
-    <circle cx="61" cy="82" r="7"/>
-    <circle cx="127" cy="82" r="7"/>
-  </g>
-  <path d="m136.81 116.53c.69 26.17-64.11 42-81.52-.73" style={{fill:'none', stroke: 'black', strokeWidth: 3}}/>
-</svg>
-          </p>
-          <input
-            className="w-full  py-3 px-3 outline-none"
-            type="text"
-            placeholder="type your message here..."
-            value={message}
-            onChange={(e)=>setMessage(e.target.value)}
-            onKeyDown={(e)=>{
-              if(e.key=='Enter'){
-                sendMessage()
-                setShowPicker(false)
-              }}}
-          />
-          <p className='font-semibold mr-3 py-3 cursor-pointer' onClick={sendMessage}>send</p>
+        <SlEmotsmile size={28}/>
+      </p>
+        <div>
+              {/* Hidden file input element */}
+              <input
+              type="file"
+              id="fileInput"
+              multiple
+              onChange={handleFileChange}
+              style={{ display: 'none' }}
+              />
+              {/* Attachment icon triggering file input */}
+            <p
+            className='mt-2 text-gray-700 cursor-pointer hover:bg-slate-300 p-1 rounded-md'
+            onClick={() => {
+              document.getElementById('fileInput').click();
+            }}
+            >
+            <MdAttachFile size={28} />
+            </p>
+        </div>
+
+        <input
+          className="w-full  py-3 px-3 outline-none"
+          type="text"
+          placeholder="type your message here..."
+          value={message}
+          onChange={(e)=>setMessage(e.target.value)}
+          onKeyDown={(e)=>{
+            if(e.key=='Enter'){
+              sendMessage()
+              setShowPicker(false)
+            }}}
+        />
+        {(message || file) && 
+        
+        <p className='font-semibold mr-3 py-3 cursor-pointer' onClick={sendMessage}>send</p>
+        }
+      </div>
+          
+          
         </div>
       </div>
       {/* <!-- end message --> */}
      
       </div>
-    </div>
+    {/* // </div> */}
+    </>
     }
     
     </>

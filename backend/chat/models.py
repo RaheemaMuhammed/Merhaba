@@ -31,5 +31,8 @@ class ChatRoom(models.Model):
 class ChatMessage(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
     room = models.ForeignKey(ChatRoom, on_delete=models.CASCADE)
-    content = models.TextField()
+    content = models.TextField(null=True)
     time = models.DateTimeField(auto_now_add=True)
+    photo = models.ImageField(upload_to='chat_photos/', null=True, blank=True)
+    video = models.FileField(upload_to='chat_videos/', null=True, blank=True)
+    document = models.FileField(upload_to='chat_documents/', null=True, blank=True)
