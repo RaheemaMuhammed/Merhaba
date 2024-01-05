@@ -2,11 +2,11 @@ repo_name: RaheemaMuhammed/Merhaba
 report_id: c0f8f7f88096e556d47aa62d11037cf0
 version: 0.1
 repo_type: Public
-timestamp: '2023-12-15T17:29:54+00:00'
+timestamp: '2024-01-05T08:21:26+00:00'
 requested_by: RaheemaMuhammed
 provider: github
 branch: main
-detected_tools_count: 31
+detected_tools_count: 32
 tools:
 - name: CSS 3
   description: The latest evolution of the Cascading Style Sheets language
@@ -16,6 +16,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/6727/css.png
+  detection_source_url: https://github.com/RaheemaMuhammed/Merhaba
   detection_source: Repo Metadata
 - name: JavaScript
   description: Lightweight, interpreted, object-oriented language with first-class
@@ -26,6 +27,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/1209/javascript.jpeg
+  detection_source_url: https://github.com/RaheemaMuhammed/Merhaba
   detection_source: Repo Metadata
 - name: Python
   description: A clear and powerful object-oriented programming language, comparable
@@ -36,6 +38,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/993/pUBY5pVj.png
+  detection_source_url: https://github.com/RaheemaMuhammed/Merhaba
   detection_source: Repo Metadata
 - name: Autoprefixer
   description: PostCSS plugin to parse CSS and add vendor prefixes to CSS rules
@@ -45,6 +48,7 @@ tools:
   category: Languages & Frameworks
   sub_category: CSS Pre-processors / Extensions
   image_url: https://img.stackshare.io/service/2202/72d087642cfce6fef6f2dabec5bf49e8_400x400.png
+  detection_source_url: https://github.com/RaheemaMuhammed/Merhaba/blob/main/frontend/package.json
   detection_source: frontend/package.json
   last_updated_by: RaheemaMuhammed
   last_updated_on: 2023-10-30 16:33:57.000000000 Z
@@ -57,6 +61,7 @@ tools:
   category: Languages & Frameworks
   sub_category: CSS Pre-processors / Extensions
   image_url: https://img.stackshare.io/service/3339/rlFcjEdI.png
+  detection_source_url: https://github.com/RaheemaMuhammed/Merhaba/blob/main/frontend/package.json
   detection_source: frontend/package.json
   last_updated_by: RaheemaMuhammed
   last_updated_on: 2023-10-30 16:33:57.000000000 Z
@@ -110,6 +115,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Front-End Frameworks
   image_url: https://img.stackshare.io/service/8158/default_660b7c41c3ba489cb581eec89c04655404258c19.png
+  detection_source_url: https://github.com/RaheemaMuhammed/Merhaba/blob/main/frontend/package.json
   detection_source: frontend/package.json
   last_updated_by: RaheemaMuhammed
   last_updated_on: 2023-10-30 16:33:57.000000000 Z
@@ -135,6 +141,7 @@ tools:
   category: Application Hosting
   sub_category: Realtime Backend / API
   image_url: https://img.stackshare.io/service/1161/vI0ZZlhZ_400x400.png
+  detection_source_url: https://github.com/RaheemaMuhammed/Merhaba/blob/main/frontend/package.json
   detection_source: frontend/package.json
   last_updated_by: RaheemaMuhammed
   last_updated_on: 2023-12-12 11:51:39.000000000 Z
@@ -146,6 +153,7 @@ tools:
   category: Data Stores
   sub_category: Database Tools
   image_url: https://img.stackshare.io/service/109221/default_b888cdf5617d936aa6aacf130911906955508639.png
+  detection_source_url: https://github.com/RaheemaMuhammed/Merhaba/blob/main/backend/requirements.txt
   detection_source: backend/requirements.txt
 - name: ESLint
   description: The fully pluggable JavaScript code quality tool
@@ -156,6 +164,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Code Review
   image_url: https://img.stackshare.io/service/3337/Q4L7Jncy.jpg
+  detection_source_url: https://github.com/RaheemaMuhammed/Merhaba/blob/main/frontend/package.json
   detection_source: frontend/package.json
   last_updated_by: RaheemaMuhammed
   last_updated_on: 2023-10-30 16:33:57.000000000 Z
@@ -167,6 +176,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Version Control System
   image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/RaheemaMuhammed/Merhaba
   detection_source: Repo Metadata
 - name: Vite
   description: Native-ESM powered web dev build tool
@@ -177,6 +187,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: JS Build Tools / JS Task Runners
   image_url: https://img.stackshare.io/service/21547/default_1aeac791cde11ff66cc0b20dcc6144eeb185c905.png
+  detection_source_url: https://github.com/RaheemaMuhammed/Merhaba/blob/main/frontend/package.json
   detection_source: frontend/package.json
   last_updated_by: RaheemaMuhammed
   last_updated_on: 2023-10-30 16:33:57.000000000 Z
@@ -188,6 +199,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Front End Package Manager
   image_url: https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png
+  detection_source_url: https://github.com/RaheemaMuhammed/Merhaba/blob/main/frontend/package.json
   detection_source: frontend/package.json
   last_updated_by: RaheemaMuhammed
   last_updated_on: 2023-10-30 16:33:57.000000000 Z
@@ -213,6 +225,7 @@ tools:
   category: Communications
   sub_category: Large Language Model Tools
   image_url: https://img.stackshare.io/service/48790/default_5b6c6b73f1ff3775c85d2a1ba954cb87e30cbf13.jpg
+  detection_source_url: https://github.com/RaheemaMuhammed/Merhaba/blob/main/backend/requirements.txt
   detection_source: backend/requirements.txt
 - name: axios
   description: Promise based HTTP client for the browser and node.js
@@ -233,6 +246,7 @@ tools:
   open_source: false
   hosted_saas: false
   image_url: https://img.stackshare.io/service/10756/339286.png
+  detection_source_url: https://github.com/RaheemaMuhammed/Merhaba/blob/main/frontend/package.json
   detection_source: frontend/package.json
   last_updated_by: RaheemaMuhammed
   last_updated_on: 2023-10-30 16:33:57.000000000 Z
@@ -396,3 +410,17 @@ tools:
     detected_date: Dec 6
     severity: moderate
     first_patched: 4.5.1
+- name: yup
+  description: Dead simple Object schema validation
+  package_url: https://www.npmjs.com/yup
+  version: 1.3.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/17215/default_37d9ccc57ae4d32e7ff46614e4f8bb2c4ddc7964.png
+  detection_source_url: https://github.com/RaheemaMuhammed/Merhaba/blob/main/frontend/package-lock.json
+  detection_source: frontend/package.json
+  last_updated_by: RaheemaMuhammed
+  last_updated_on: 2023-10-30 16:33:57.000000000 Z
