@@ -1,5 +1,5 @@
 import React,{useEffect, useState,useRef} from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { axiosInstance } from '../Axios/instanse'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
@@ -133,6 +133,7 @@ const ChatRoom = () => {
     
     const handleFileChange=(event)=>{
       const file = event.target.files[0];
+      console.log(file);
       setSelectedFile(file);
       // setMessage(file)
       setFile(file)
@@ -233,7 +234,15 @@ const ChatRoom = () => {
               <div
                 className="mr-2 py-3 px-4 bg-messages rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-msgtxt"
               ><p className='font-semibold text-lg text-sender' >{item?.sender_details?.username}</p>
-              {item?.photo && <img className='h-[300px] w-[300px]' src={`http://127.0.0.1:8000${item.photo}`}/>}
+              {item?.photo && (<img className='h-[300px] w-[300px]' src={`http://127.0.0.1:8000${item.photo}`}/>)}
+              {item?.video && (<video width="320" height="240" controls>
+        <source src={`http://127.0.0.1:8000${item.video}`} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>)}
+              {item?.document && (      <a href={`http://127.0.0.1:8000${item?.document}`} target="_blank" rel="noreferrer" className='text-primary underline'>{item?.document.split('/').pop()}</a>
+ )}
+              {/* {item?.photo && <img className='h-[300px] w-[300px]' src={`http://127.0.0.1:8000${item.photo}`}/>} */}
+
                {item?.content}
               </div>
               

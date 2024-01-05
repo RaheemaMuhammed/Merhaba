@@ -83,13 +83,39 @@ class MessageView(APIView):
                     message=serializer.save()
                     channel_layer = get_channel_layer()
                     if 'file' in request.FILES:
-                        message.photo = request.FILES['file']  # Change 'photo' to your desired file field
+                        filename=''
+                        file_type=''
+                        uploaded_file = request.FILES['file']
+                        file_extension = uploaded_file.name.split('.')[-1].lower()
+
+                        if file_extension in ['jpg', 'jpeg', 'png', 'gif']:
+                            # This is an image
+                            message.photo = uploaded_file
+                            filename='/media/chat_photos/'+str(request.FILES['file'])
+                            file_type='image'
+                            
+                        elif file_extension in ['mp4', 'mov', 'avi']:
+                            # This is a video
+                            message.video = uploaded_file
+                            filename='/media/chat_videos/'+str(request.FILES['file'])
+                            file_type='video'
+
+
+                        else:
+                            # This is a document
+                            message.document = uploaded_file
+                            filename='/media/chat_documents/'+str(request.FILES['file'])
+                            file_type='document'
+
+
+
                         message.save()
                         async_to_sync(channel_layer.group_send)(
                         f"user_{code}",
                         {
                             'type': 'new_file',
-                            'file':  '/media/chat_photos/'+str(request.FILES['file']),
+                            'file':filename ,
+                            'file_type': file_type,
                             'message': data['content'],
                             'sender': {
                             'username': sender.username,

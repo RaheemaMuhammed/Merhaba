@@ -110,9 +110,18 @@ class JoinChatConsumer(AsyncWebsocketConsumer):
 
     async def new_file(self, event):
         # Notify the connected clients about new file 
+        field_name=''
+        if event['file_type']=='image':
+            field_name='photo'
+        elif event['file_type']=='video':
+            field_name='video'
+        else:
+            field_name='document'
+
         await self.send(text_data=json.dumps({
             'file': True,
-            'photo': event['file'],
+            'filetype':event['file_type'],
+            field_name: event['file'],
             'content': event['message'],
             'sender_details':event['sender']  
         }))
