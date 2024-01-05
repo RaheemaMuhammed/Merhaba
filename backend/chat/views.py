@@ -78,6 +78,7 @@ class MessageView(APIView):
                sender=CustomUser.objects.get(pk=pk)
                
                serializer=PostMessageSerializer(data=data)
+               print(serializer.is_valid())
 
                if serializer.is_valid():
                     message=serializer.save()

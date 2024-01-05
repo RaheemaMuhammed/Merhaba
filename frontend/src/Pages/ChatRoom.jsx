@@ -241,7 +241,6 @@ const ChatRoom = () => {
       </video>)}
               {item?.document && (      <a href={`http://127.0.0.1:8000${item?.document}`} target="_blank" rel="noreferrer" className='text-primary underline'>{item?.document.split('/').pop()}</a>
  )}
-              {/* {item?.photo && <img className='h-[300px] w-[300px]' src={`http://127.0.0.1:8000${item.photo}`}/>} */}
 
                {item?.content}
               </div>
@@ -280,14 +279,27 @@ const ChatRoom = () => {
             {selectedFile && (
             <>
             
-              <p className='absolute mr-0 top-0 ml-16 z-20 cursor-pointer' onClick={()=>{setSelectedFile(null);setFile(null)}}><IoMdCloseCircleOutline size={23}/></p>
+
             <div className='rounded-lg  relative z-10'>
-              <img
-                src={URL.createObjectURL(selectedFile)}
-                alt={`preview`}
-                style={{ width: '70px', height: '70px',borderRadius:'15px',margin:'3px',marginLeft:'7px' }}
-              />
+              <p className='absolute top-0 z-20 cursor-pointer' onClick={()=>{setSelectedFile(null);setFile(null)}}><IoMdCloseCircleOutline size={24} /></p>
+              {
+              selectedFile?.type?.startsWith('image/') ? <img
+              src={URL.createObjectURL(selectedFile)}
+              alt={`preview`}
+              style={{ width: '70px', height: '70px',borderRadius:'15px',margin:'3px',marginLeft:'7px' }}
+            />:(selectedFile?.type?.startsWith('video/')?
+          
+            <video
+          style={{ width: '70px', height: '70px', borderRadius: '15px', margin: '3px', marginLeft: '7px' }}
+        >
+          <source src={URL.createObjectURL(selectedFile)} type={selectedFile.type} />
+          Your browser does not support the video tag.
+        </video>
+             : <p className='w-fit border rounded-md p-1 m-1 ml-2 '>{selectedFile?.name}</p> )
+              }
+              
             </div>
+
             </>
             
           )}
