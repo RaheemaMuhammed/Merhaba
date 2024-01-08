@@ -9,6 +9,10 @@ from rest_framework.permissions import IsAuthenticated
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
+from dotenv import load_dotenv
+
+load_dotenv()
+import os
 class ChatRoomView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
@@ -92,20 +96,20 @@ class MessageView(APIView):
                         if file_extension in ['jpg', 'jpeg', 'png', 'gif']:
                             # This is an image
                             message.photo = uploaded_file
-                            filename='/media/chat_photos/'+str(request.FILES['file'])
+                            filename=os.getenv('AWS_BASE_URL')+'chat_photos/'+str(request.FILES['file'])
                             file_type='image'
                             
                         elif file_extension in ['mp4', 'mov', 'avi']:
                             # This is a video
                             message.video = uploaded_file
-                            filename='/media/chat_videos/'+str(request.FILES['file'])
+                            filename=os.getenv('AWS_BASE_URL')+'chat_videos'+str(request.FILES['file'])
                             file_type='video'
 
 
                         else:
                             # This is a document
                             message.document = uploaded_file
-                            filename='/media/chat_documents/'+str(request.FILES['file'])
+                            filename=os.getenv('AWS_BASE_URL')+'chat_documents/'+str(request.FILES['file'])
                             file_type='document'
 
 

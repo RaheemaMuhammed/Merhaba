@@ -76,9 +76,8 @@ const Header = () => {
 
   return (
   
-        <header>
-        <nav className="bg-secondary border-gray-200 px-4 lg:px-6 py-2.5 w-screen">
-        <div className="flex flex-wrap justify-between mt-2 items-center mx-auto max-w-screen-xl">
+        <nav className="bg-secondary border-gray-200 px-4 lg:px-6 py-2.5 sticky top-0 z-10">
+        <div className="flex flex-wrap justify-between mt-2 items-center max-w-screen-xl">
             <Link to={'/'}>
             
                 <img src={logo} className="ml-5 h-10 sm:h-9" alt="Merhaba Logo" />
@@ -118,7 +117,6 @@ const Header = () => {
             
         </div>
     </nav>
-</header>
         
   )
 }

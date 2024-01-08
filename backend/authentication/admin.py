@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 class UserAdminCustom(UserAdmin):
         fieldsets = (
         (None, {"fields": ("email", "password")}),
-        (_("Personal info"), {"fields": ("username","registration_method")}),
+        (_("Personal info"), {"fields": ("username","registration_method","profile_pic")}),
         (
             _("Permissions"),
             {
