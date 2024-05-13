@@ -5,6 +5,7 @@ import { axiosInstance } from '../Axios/instanse'
 import {toast} from 'react-toastify'
 import { registrationSchema } from '../Validations/registrationValidation'
 import { useLoading } from '../CustomHooks/useLoading'
+import Header from './Header'
 const SignupForm = () => {
    const {loading,setLoading} =useLoading()
    const navigate=useNavigate()
@@ -59,6 +60,8 @@ const SignupForm = () => {
             window.location.replace(`https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${callBackURI}&prompt=consent&response_type=code&client_id=${clientID}&scope=openid%20email%20profile&access_type=offline`)
            }
   return (
+    <>
+    <Header/>
     <section className="bg-secondary  h-screen ">
     <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <div className="w-full shadow-inner shadow-shiny bg-primary rounded-lg  md:mt-0 sm:max-w-md xl:p-0 ">
@@ -147,6 +150,7 @@ const SignupForm = () => {
         </div>
     </div>
   </section>
+    </>
   )
 }
 

@@ -7,6 +7,7 @@ import { axiosInstance } from '../Axios/instanse'
 import {toast} from 'react-toastify'
 import {useDispatch} from 'react-redux'
 import {UserLogin} from '../Redux/userSlice'
+import Header from './Header'
 const LoginForm = () => {
     const { loading ,setLoading }    = useLoading()
     const navigate=useNavigate()
@@ -76,6 +77,8 @@ const LoginForm = () => {
 
   
   return (
+    <>
+    <Header/>
     <section className="bg-secondary h-screen ">
     <div className="flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
         <div className="w-full shadow-inner shadow-shiny bg-primary rounded-lg  md:mt-0 sm:max-w-md xl:p-0 ">
@@ -93,7 +96,7 @@ const LoginForm = () => {
                     value={values.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                         className="bg-gray-50 border border-gray-300 text-shiny sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" 
+                         className="bg-gray-50 border border-gray-300  sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" 
                          placeholder="Enter your Email" />
                     {errors.email && touched.email && (
                 <p className="text-red-600">{errors.email}</p>
@@ -138,6 +141,7 @@ const LoginForm = () => {
         </div>
     </div>
   </section>
+    </>
   )
 }
 

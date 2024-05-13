@@ -7,6 +7,7 @@ import {UserLogout} from '../Redux/userSlice'
 import { axiosInstance } from '../Axios/instanse'
 import { useLoading } from '../CustomHooks/useLoading'
 import {UserLogin} from '../Redux/userSlice'
+import { RiLogoutCircleLine } from "react-icons/ri";
 
 import { CgProfile } from "react-icons/cg";
 const Header = () => {
@@ -76,7 +77,7 @@ const Header = () => {
 
   return (
   
-        <nav className="bg-secondary border-gray-200 px-4 lg:px-6 py-2.5 sticky top-0 z-10">
+        <nav className="bg-secondary  px-4 lg:px-6 py-2.5 sticky top-0 z-10">
         <div className="flex flex-wrap justify-between mt-2 items-center max-w-screen-xl">
             <Link to={'/'}>
             
@@ -88,13 +89,13 @@ const Header = () => {
                 { user ?
                 <>
                 <p className='text-primary font-medium text-lg px-4 lg:px-5 py-2 lg:py-2.5 mr-2 '>Welcome {user ? user.toUpperCase() : ''}  !</p>     
-                {/* <p onClick={handleLogout} className="text-shiny cursor-pointer bg-primary hover:shadow-lg hover:shadow-shiny focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2  focus:outline-none ">
-         
-                    LogOut
-                    </p> */}
-                    <p className='text-primary'>
-                      <CgProfile size={40} fill=''/>
+                <p onClick={handleLogout} className="text-shiny cursor-pointer bg-primary hover:shadow-lg hover:shadow-shiny focus:ring-4 focus:ring-gray-300 font-medium p-1 rounded-lg text-sm mr-2  focus:outline-none ">
+         <RiLogoutCircleLine size={23}/>
+                    
                     </p>
+                    {/* <p className='text-primary'>
+                      <CgProfile size={40} fill=''/>
+                    </p> */}
                     
                 </> 
                 
