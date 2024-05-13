@@ -35,6 +35,7 @@ class ChatRoomView(APIView):
                 serializer= ChatRoomSerializer(chat_room)
                 chatroom_messages = ChatMessage.objects.filter(room__room_code=code).order_by('time')
                 serializer2=ChatMessageSerializer(chatroom_messages,many=True)
+                print(serializer2.data)
                 return Response({'payload':{'user_data':serializer.data,'message_data':serializer2.data},'status':200})
             return Response({'message':'This chat has been expired!!','status':404})
             
@@ -71,6 +72,7 @@ class MessageView(APIView):
                
      
      def post(self,request):
+          USE_S3 = os.getenv('USE_S3') == 'TRUE'
           try:
                data=request.data
                print(data)
@@ -96,20 +98,37 @@ class MessageView(APIView):
                         if file_extension in ['jpg', 'jpeg', 'png', 'gif']:
                             # This is an image
                             message.photo = uploaded_file
-                            filename=os.getenv('AWS_BASE_URL')+'chat_photos/'+str(request.FILES['file'])
+                            if USE_S3:
+                                 
+                                filename=os.getenv('AWS_BASE_URL')+'chat_photos/'+str(request.FILES['file'])
+                            else:
+                                # filename = os.getenv('BACKEND_URL')+'mediafiles/chat_photos/'+str(request.FILES['file'])
+                                filename = os.getenv('BACKEND_URL')+'mediafiles/chat_photos/'+str(message.photo)
                             file_type='image'
                             
                         elif file_extension in ['mp4', 'mov', 'avi']:
                             # This is a video
                             message.video = uploaded_file
-                            filename=os.getenv('AWS_BASE_URL')+'chat_videos'+str(request.FILES['file'])
+                            if USE_S3:
+                                 
+                                filename=os.getenv('AWS_BASE_URL')+'chat_videos'+str(request.FILES['file'])
+                            else:
+                                # filename = os.getenv('BACKEND_URL')+'mediafiles/chat_videos/'+str(request.FILES['file'])
+                                filename = os.getenv('BACKEND_URL')+'mediafiles/chat_videos/'+str(message.video)
+                    
                             file_type='video'
 
 
                         else:
                             # This is a document
                             message.document = uploaded_file
-                            filename=os.getenv('AWS_BASE_URL')+'chat_documents/'+str(request.FILES['file'])
+                            
+                            if USE_S3:
+                                 
+                                filename=os.getenv('AWS_BASE_URL')+'chat_documents/'+str(request.FILES['file'])
+                            else:
+                                # filename = os.getenv('BACKEND_URL')+'mediafiles/chat_documents/'+str(request.FILES['file'])
+                                filename = os.getenv('BACKEND_URL')+'mediafiles/chat_documents/'+str(message.document)
                             file_type='document'
 
 

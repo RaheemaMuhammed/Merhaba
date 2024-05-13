@@ -18,6 +18,8 @@ def send_verification_link(user):
     # verify_link = FRONTEND_URL + '/email-verify/' + token
     subject='Account Verification'
     email_from=settings.EMAIL_HOST_USER
+
+    body="helloo and welcome"
     body = render_to_string('email_verification.html',
             {'domain':FRONTEND_URL,
               'user': user,

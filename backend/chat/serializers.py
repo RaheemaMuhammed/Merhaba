@@ -1,7 +1,17 @@
 from rest_framework import serializers
 from .models import ChatRoom,ChatMessage
 from authentication.models import CustomUser  
+from dotenv import load_dotenv
+
+load_dotenv()
+import os
 class UserSerializer(serializers.ModelSerializer):
+    profile_pic = serializers.SerializerMethodField()
+
+    def get_profile_pic(self,instance):
+        if instance.profile_pic:
+            return os.getenv('BACKEND_URL') + 'mediafiles/'+str(instance.profile_pic)
+
     class Meta:
         model=CustomUser
         fields = ('pk', 'username', 'email', 'profile_pic')  
@@ -39,6 +49,19 @@ class PostMessageSerializer(serializers.ModelSerializer):
 
 class ChatMessageSerializer(serializers.ModelSerializer):
     sender_details=UserSerializer(source='sender',read_only=True)
+    photo = serializers.SerializerMethodField()
+    video = serializers.SerializerMethodField()
+    document = serializers.SerializerMethodField()
     class Meta:
         model=ChatMessage
         fields = ('id', 'sender', 'sender_details', 'room', 'content', 'time','photo','video','document')
+
+    def get_photo(self,instance):
+        if instance.photo:
+            return os.getenv('BACKEND_URL') + 'mediafiles/'+str(instance.photo)
+    def get_video(self,instance):
+        if instance.video:
+            return os.getenv('BACKEND_URL') + 'mediafiles/'+str(instance.video)
+    def get_document(self,instance):
+        if instance.document:
+            return os.getenv('BACKEND_URL') + 'mediafiles/'+str(instance.document)

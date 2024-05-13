@@ -143,11 +143,11 @@ ASGI_APPLICATION = 'backend.asgi.application'
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'merhaba_db',
-       'USER': 'merhaba_admin',
-       'PASSWORD': 'admin',
-       'HOST': 'localhost',
-       'PORT': '5433',
+       'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT', '5433'),
    }
 }
 
@@ -249,7 +249,7 @@ else:
     MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'staticfiles'),)
 
 # MEDIA_URL = '/mediafiles/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
