@@ -3,10 +3,9 @@ import logo from '../assets/logo.png'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
-import {UserLogout} from '../Redux/userSlice'
 import { axiosInstance } from '../Axios/instanse'
 import { useLoading } from '../CustomHooks/useLoading'
-import {UserLogin} from '../Redux/userSlice'
+import {UserLogin,UserLogout} from '../Redux/UserSlice'
 import { RiLogoutCircleLine } from "react-icons/ri";
 
 import { CgProfile } from "react-icons/cg";
