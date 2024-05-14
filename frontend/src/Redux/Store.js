@@ -6,7 +6,7 @@ import { persistReducer,FLUSH,
     PURGE,
     REGISTER, } from 'redux-persist'
 import storage  from "redux-persist/lib/storage"
-import UserReducer from './userSlice'
+import UserReducer from './UserSlice'
 const PersistConfig = {key :'root' , storage,version:1}
 
 const reducer = combineReducers({
