@@ -202,7 +202,7 @@ EMAIL_USE_SSL= os.getenv('EMAIL_USE_SSL', '').lower() == 'true'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Path where media is stored'
