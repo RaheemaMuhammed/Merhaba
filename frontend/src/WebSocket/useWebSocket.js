@@ -7,7 +7,11 @@ const useWebSocket = (roomCode, token, setNewUser,setIncomingMsg,setSender,setMe
   const navigate=useNavigate()
 
   useEffect(() => {
-    socketRef.current = new WebSocket(`ws://127.0.0.1:8000/ws/join/${roomCode}/?token=${token}`);
+    var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    const backendURL = import.meta.env.VITE_DEVELOP === 'True'
+  ? '127.0.0.1:8000'
+  : 'backendapi.site';
+    socketRef.current = new WebSocket(`${ws_scheme}://${backendURL}/ws/join/${roomCode}/?token=${token}`);
 
     socketRef.current.onopen = () => {
       console.log('WebSocket connection opened.');
