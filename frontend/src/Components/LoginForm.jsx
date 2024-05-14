@@ -6,7 +6,7 @@ import { loginSchema } from '../Validations/loginSchema'
 import { axiosInstance } from '../Axios/instanse'
 import {toast} from 'react-toastify'
 import {useDispatch} from 'react-redux'
-import {UserLogin} from '../Redux/userSlice'
+import {UserLogin} from '../Redux/UserSlice'
 import Header from './Header'
 const LoginForm = () => {
     const { loading ,setLoading }    = useLoading()
