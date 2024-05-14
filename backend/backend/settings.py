@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-s!&p5e#o)g9ur!_d!yb&6i+&*5r=7ylkecr89814+!a+90iy-i
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
-
+print(DEBUG)
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default='localhost').split(',')
 
 
@@ -202,12 +202,16 @@ EMAIL_USE_SSL= os.getenv('EMAIL_USE_SSL', '').lower() == 'true'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Path where media is stored'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+
+if os.getenv('DEBUG'):
+    STATIC_URL = 'static/'
+else:
+    STATIC_URL = "/static/"
+    STATIC_ROOT = "staticfiles"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
