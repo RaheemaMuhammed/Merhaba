@@ -31,6 +31,7 @@ DEBUG = os.getenv('DEBUG')
 print(DEBUG)
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default='localhost').split(',')
 
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', default='localhost').split(',')
 
 # Application definition
 
