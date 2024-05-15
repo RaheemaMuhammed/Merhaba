@@ -232,7 +232,7 @@ const ChatRoom = () => {
             </div>
             {/* messages listing part */}
             <div className="col-span-5 h-screen border-l overflow-hidden ">
-                  <div className="px-5 h-[87%] overflow-auto scrollbar mt-5">
+                  <div className="px-5 h-[85%] overflow-auto scrollbar mt-5 relative">
                     {messageList?.map((item, indx) => {
                       return item?.sender_details?.pk === pk ? (
                         <div key={indx} className="flex justify-end mb-4">
@@ -301,18 +301,16 @@ const ChatRoom = () => {
                     {/* for automatic scrolling to bottom */}
                     {/* <div ref={messagesEndRef} /> */}
                     {/* for emoji selection */}
-                    <div className=" z-30 ">
+                    <div className="absolute mb-0 z-30 ">
                       {showPicker && (
                         <Picker data={data} onEmojiSelect={addEmoji} />
                       )}
                     </div>
-                  </div>
+                    
 
-                  {/* message input */}
-                  <div className="mx-1 py-2 border-t-2 border-b-2 border-primary z-50 bg-white rounded-xl  ">
                     {selectedFile && (
                       <>
-                        <div className="rounded-lg   z-10">
+                        <div className="rounded-lg absolute mb-3 left-0  z-10">
                           <p
                             className="absolute top-0 z-20 cursor-pointer"
                             onClick={() => {
@@ -340,7 +338,7 @@ const ChatRoom = () => {
                                 width: "70px",
                                 height: "70px",
                                 borderRadius: "15px",
-                                margin: "3px",
+                                // margin: "3px",
                                 marginLeft: "7px",
                               }}
                             >
@@ -358,6 +356,12 @@ const ChatRoom = () => {
                         </div>
                       </>
                     )}
+                    
+                  </div>
+
+                  {/* message input */}
+                  <div className="mx-1 py-2 border-t-2 border-b-2 border-primary z-50 bg-white rounded-xl relative ">
+                    
                     <div className="flex gap-2">
                       <p
                         className="ml-1 mt-2 text-gray-700 cursor-pointer hover:bg-slate-300 p-1 rounded-md"
