@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def get_profile_pic(self,instance):
         if instance.profile_pic:
-            return os.getenv('BACKEND_URL') + 'media/userprofile/'+str(instance.profile_pic)
+            return os.getenv('BACKEND_URL') + 'media/'+str(instance.profile_pic)
 
     class Meta:
         model=CustomUser
@@ -58,10 +58,10 @@ class ChatMessageSerializer(serializers.ModelSerializer):
 
     def get_photo(self,instance):
         if instance.photo:
-            return os.getenv('BACKEND_URL') + 'media/chat_photos/'+str(instance.photo)
+            return os.getenv('BACKEND_URL') + 'media/'+str(instance.photo)
     def get_video(self,instance):
         if instance.video:
-            return os.getenv('BACKEND_URL') + 'media/chat_videos/'+str(instance.video)
+            return os.getenv('BACKEND_URL') + 'media/'+str(instance.video)
     def get_document(self,instance):
         if instance.document:
-            return os.getenv('BACKEND_URL') + 'media/chat_documents/'+str(instance.document)
+            return os.getenv('BACKEND_URL') + 'media/'+str(instance.document)
