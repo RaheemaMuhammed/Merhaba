@@ -206,13 +206,14 @@ EMAIL_USE_SSL= os.getenv('EMAIL_USE_SSL', '').lower() == 'true'
 MEDIA_URL = '/media/'
 # Path where media is stored'
 MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = '/var/www/merhaba/media'
 
 
 if os.getenv('DEBUG'):
     STATIC_URL = 'static/'
 else:
     STATIC_URL = "/static/"
-    STATIC_ROOT = "staticfiles"
+    STATIC_ROOT = '/var/www/merhaba/static'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
