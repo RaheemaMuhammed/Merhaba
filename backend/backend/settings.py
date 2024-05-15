@@ -205,7 +205,7 @@ EMAIL_USE_SSL= os.getenv('EMAIL_USE_SSL', '').lower() == 'true'
 
 MEDIA_URL = '/media/'
 # Path where media is stored'
-MEDIA_ROOT = BASE_DIR / 'media'
+# MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_ROOT = '/var/www/merhaba/media'
 
 
