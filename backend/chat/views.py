@@ -103,7 +103,7 @@ class MessageView(APIView):
                                 filename=os.getenv('AWS_BASE_URL')+'chat_photos/'+str(request.FILES['file'])
                             else:
                                 # filename = os.getenv('BACKEND_URL')+'mediafiles/chat_photos/'+str(request.FILES['file'])
-                                filename = os.getenv('BACKEND_URL')+'mediafiles/chat_photos/'+str(message.photo)
+                                filename = os.getenv('BACKEND_URL')+'media/chat_photos/'+str(message.photo)
                             file_type='image'
                             
                         elif file_extension in ['mp4', 'mov', 'avi']:
@@ -114,7 +114,7 @@ class MessageView(APIView):
                                 filename=os.getenv('AWS_BASE_URL')+'chat_videos'+str(request.FILES['file'])
                             else:
                                 # filename = os.getenv('BACKEND_URL')+'mediafiles/chat_videos/'+str(request.FILES['file'])
-                                filename = os.getenv('BACKEND_URL')+'mediafiles/chat_videos/'+str(message.video)
+                                filename = os.getenv('BACKEND_URL')+'media/chat_videos/'+str(message.video)
                     
                             file_type='video'
 
@@ -128,7 +128,7 @@ class MessageView(APIView):
                                 filename=os.getenv('AWS_BASE_URL')+'chat_documents/'+str(request.FILES['file'])
                             else:
                                 # filename = os.getenv('BACKEND_URL')+'mediafiles/chat_documents/'+str(request.FILES['file'])
-                                filename = os.getenv('BACKEND_URL')+'mediafiles/chat_documents/'+str(message.document)
+                                filename = os.getenv('BACKEND_URL')+'media/chat_documents/'+str(message.document)
                             file_type='document'
 
 
