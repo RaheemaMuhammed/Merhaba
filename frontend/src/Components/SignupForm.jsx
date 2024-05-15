@@ -56,7 +56,7 @@ const SignupForm = () => {
          })
          const reachGoogle = ()=>{
             const clientID=import.meta.env.VITE_GOOGLE_CLIENT_ID;
-            const callBackURI='http://localhost:5173/';
+            const callBackURI=import.meta.env.VITE_DEVELOP === 'True' ? 'http://localhost:5173/' : 'https://merhaba-chat.netlify.app/';
             window.location.replace(`https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${callBackURI}&prompt=consent&response_type=code&client_id=${clientID}&scope=openid%20email%20profile&access_type=offline`)
            }
   return (
